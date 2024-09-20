@@ -19,7 +19,7 @@ def get_user_repos():
     g = Github()
     user = g.get_user(username)
 
-    return list(user.get_repos())
+    return list(user.get_repos('all'))
 
 
 # Проверка, что репозиторий с заданным именем, присутствует в общем списке репозиториев пользователя
@@ -60,7 +60,8 @@ def remove_repo():
                'Authorization': 'token {}'.format(personal_access_token)}
 
     response = requests.delete(
-        '{}/repos/{}/{}/?access_token={}'.format(api_base_url, username, repo_name, personal_access_token), headers=headers
+        '{}/repos/{}/{}'.format(api_base_url, username, repo_name),
+        headers=headers
     )
 
     print(response.status_code)
